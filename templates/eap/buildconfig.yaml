@@ -1,0 +1,22 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: ${APP_NAME}-binary
+  namespace: ${NAMESPACE}
+  labels:
+    app.kubernetes.io/name: ${APP_NAME}
+spec:
+  source:
+    type: Binary
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: ${BASE_IMAGE_IS_NAMESPACE}
+        name: ${BASE_IMAGE_IS_NAME}:${BASE_IMAGE_TAG}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: ${APP_NAME}:${OUTPUT_IMAGE_TAG}
+  runPolicy: Serial

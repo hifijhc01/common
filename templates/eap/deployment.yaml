@@ -20,16 +20,3 @@ spec:
           image: image-registry.openshift-image-registry.svc:5000/${NAMESPACE}/${APP_NAME}:${OUTPUT_IMAGE_TAG}
           ports:
             - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 30
-          env:
-            - name: JAVA_OPTIONS
-              value: "-Xms256m -Xmx512m"

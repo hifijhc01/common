@@ -14,7 +14,7 @@ spec:
       from:
         kind: ImageStreamTag
         namespace: ${BASE_IMAGE_IS_NAMESPACE}
-        name: ${BASE_IMAGE_IS_NAME}:${BASE_IMAGE_TAG}
+        name: eap74-openjdk11-openshift-rhel8:7.4.15-2
   output:
     to:
       kind: ImageStreamTag

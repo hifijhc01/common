@@ -1,10 +1,9 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: ${APP_NAME}-binary
+  name: ${BUILD_CONFIG_NAME}
   namespace: ${NAMESPACE}
-  labels:
-    app.kubernetes.io/name: ${APP_NAME}
+  labels: { app: ${APP_NAME} }
 spec:
   source:
     type: Binary
@@ -13,10 +12,12 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        namespace: ${BASE_IMAGE_IS_NAMESPACE}
-        name: eap74-openjdk11-openshift-rhel8:7.4.15-2
+        namespace: ${BUILDER_IS_NAMESPACE}   # ← 추가
+        name: ${BUILDER_IS_NAME}:${BUILDER_IS_TAG}  # ← 추가
   output:
     to:
       kind: ImageStreamTag
       name: ${APP_NAME}:${OUTPUT_IMAGE_TAG}
-  runPolicy: Serial
+  triggers:
+    - type: ConfigChange
+
